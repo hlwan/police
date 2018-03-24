@@ -1,0 +1,21 @@
+server:
+  port: 10091
+  servlet:
+    context-path: /police
+spring:
+  jackson:
+    time-zone: GMT+8
+  freemarker:
+    request-context-attribute: request
+
+logging:
+  config: classpath:logback.xml
+
+
+
+url:
+  login: http://10.32.0.113/userCloud/userCloud_login.action?time=_time&jxtFlag=0
+  main: http://10.32.0.113/os/main.jsp?
+
+
+visit.schedule: 55 59 0/1 * * ?
