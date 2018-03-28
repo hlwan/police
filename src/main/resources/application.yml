@@ -19,3 +19,6 @@ url:
 
 
 visit.schedule: 55 59 0/1 * * ?
+
+hour.begin: 7
+hour.end: 19

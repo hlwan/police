@@ -34,11 +34,31 @@ public class AccountService {
     @Value("${url.main}")
     private String mainUrl;
 
+    @Value("${hour.begin}")
+    private String hourBegin;
+
+    @Value("${hour.end}")
+    private String hourEnd;
+
     @Scheduled(cron = "${visit.schedule}")
     public void schedule(){
         LocalTime localTime=LocalTime.now();
-        if(localTime.getHour()<7 || localTime.getHour()>18){
-            log.info("只在7-18点范围内处理，时间未到，不做处理");
+        int start=0;int end=0;
+        try{
+            start=Integer.parseInt(hourBegin);
+        }catch (Exception e){
+            log.error("开始小时信息解析失败，置为默认的7点",e);
+            start=7;
+        }
+        try{
+            end=Integer.parseInt(hourEnd);
+        }catch (Exception e){
+            log.error("结束小时信息解析失败，置为默认的19点",e);
+            end=19;
+        }
+
+        if(localTime.getHour()<start || localTime.getHour()>end){
+            log.info("只在"+start +"-"+end+"点范围内处理，时间未到，不做处理");
             return ;
         }
         List<Account> accounts=accountRepository.findAll();
